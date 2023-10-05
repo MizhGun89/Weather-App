@@ -1,34 +1,45 @@
+import React from 'react';
+import { IWheatherData } from '../../FetchData';
 import styles from './card.module.css';
 
-const formatUtcDate = (utcDate: number): string => {
-  const date = new Date(utcDate * 1000);
-  const options = { day: 'numeric', month: 'long' };
-  const formattedDate = date.toLocaleDateString('ru-RU', options);
+interface IWeatherComponentProps {
+  data: IWheatherData;
+}
 
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+// const formatUtcDate = (utcDate: number): string => {
+//   const date = new Date(utcDate * 1000);
+//   const options = { day: 'numeric', month: 'long' };
+//   const formattedDate = date.toLocaleDateString('ru-RU', options);
 
-  return `${formattedDate}, ${formattedTime}`;
-};
+//   const hours = date.getHours();
+//   const minutes = date.getMinutes();
+//   const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes
+//     .toString()
+//     .padStart(2, '0')}`;
 
-export const Card = ({ data }: any): JSX.Element => {
-  console.log(data)
+//   return `${formattedDate}, ${formattedTime}`;
+// };
 
-  const city: string = data.name !== undefined ? data.name : '123'
-  const weatherNow: string = data.main.temp !== undefined ? data.main.temp : '123'
-  const cloud: string = data.weather[0].description !== undefined ? data.weather[0].description : '123'
-  //Для почасовому
-  // data.list.forEach(item => {
-  //   console.log(formatUtcDate(item.dt) + ' ' + item.main.temp)
-  // });
+export const Card = ({ data }: IWeatherComponentProps): JSX.Element => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const city = data.name;
+  const weatherNow = data.main?.temp;
+  const cloud = data.weather[0].description;
 
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
+  const cardWidth = isOpen ? styles.cardL : styles.cardS;
 
   return (
-    <div className={styles.card}>
-      <h2>{city}</h2>
-      <p>{Math.round(Number(JSON.stringify(weatherNow)))} °С</p>
-      <p>{JSON.stringify(cloud)}</p>
+    <div className={`${styles.card} ${cardWidth}`} onClick={handleClick}>
+      <p className={styles.city}>
+        {city === 'Posëlok Rabochiy' ? 'Екатеринбург' : city}
+      </p>
+      <p className={styles.temp}>
+        {Math.round(Number(JSON.stringify(weatherNow)))} °С
+      </p>
+      <p className={styles.cloud}>{cloud}</p>
       {/* <p>Data: {JSON.stringify(data)}</p> */}
     </div>
   );
