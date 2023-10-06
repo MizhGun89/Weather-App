@@ -24,11 +24,7 @@ export const App = (): JSX.Element => {
   return (
     <div>
       <h1>Weather App</h1>
-      {weatherData ? (
-        <Card data={weatherData} />
-      ) : (
-        <p>Loading Ekaterinburg...</p>
-      )}
+      {weatherData ? <Card data={weatherData} /> : <p>Loading weather...</p>}
       {/* {dataMsk ? <Card data={URLMsk} /> : <p>Loading Moscow...</p>} */}
     </div>
   );

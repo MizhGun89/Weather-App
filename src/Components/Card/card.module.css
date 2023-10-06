@@ -5,11 +5,15 @@
   justify-content: space-between;
   height: 250px;
   padding: 20px;
-  background-color: #666666;
+  background: linear-gradient(to bottom, #57c1eb 0%,#246fa8 100%);
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(102, 102, 102, 0.5);
   transition: width 0.5s ease-in-out;
   cursor: pointer;
+}
+
+.card svg {
+  width: 70px;
 }
 
 .cardS {
@@ -23,10 +27,22 @@
   /* margin-right: auto; */
 }
 
+.tempBox {
+  display: flex;
+  align-items: start;
+}
+
 .temp {
+  margin-right: 5px;
   font-size: 2.5rem;
+  line-height: 1;
+}
+
+.temp + span{
+  font-size: 1.5rem;
 }
 
 .cloud {
-  font-size: 1.5rem;
+  font-size: 1rem;
+  text-align: start;
 }
